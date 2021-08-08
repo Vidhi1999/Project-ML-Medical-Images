@@ -1,0 +1,32 @@
+{% extends "user/index.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+
+<div class="content-section col-md-8 col-md-offset-2">
+    <center>
+        <form method="POST" enctype='multipart/form-data' style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;" >
+            {% csrf_token %}
+            <fieldset class="form-group">
+              {{ form|crispy}}
+{% for image in output %} 
+<div class="col-md-4">
+        <h3>{{ image.name }}</h3> 
+         <img src="{{ image.medical_image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /> 
+         
+</div> 
+
+{% endfor %} 
+{% if description %}
+<div>
+    <h3>Result</h3>
+
+        <p>{{ description | safe}}  </p> 
+</div>      
+{% endif %} 
+
+</fieldset>
+</form>
+</center>
+</div>
+
+{% endblock start %}
